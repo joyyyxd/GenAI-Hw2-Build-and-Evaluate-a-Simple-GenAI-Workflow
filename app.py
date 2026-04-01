@@ -1,0 +1,1 @@
+print("GenAI HW2 app placeholder")
