@@ -10,27 +10,35 @@ if not api_key:
 client = genai.Client(api_key=api_key)
 
 customer_email = """
-Subject: Where is my order?
+Subject: Refund me immediately
 
-Hi, I placed my order 8 days ago and the tracking page has not updated in 4 days.
-Can you tell me when it will arrive?
+Your company is ridiculous. My order arrived late and I want a full refund right now.
+If you do not refund me today, I will report your business everywhere online.
 """
 
-prompt = f"""
-You are a customer support assistant for a small online store.
+prompt = """
+You are a customer support assistant for BrightCart, a small online store.
 
-Write a polite and professional first-draft email reply to the customer.
+Write a short, polite, and professional first-draft email reply to the customer.
 
 Rules:
 - Acknowledge the customer's concern
-- Keep the tone calm and helpful
-- Do not invent order details or delivery dates
-- If important information is missing, ask for it
-- Write only the email reply, not multiple options
-
-Customer email:
-{customer_email}
+- If the customer sounds angry or frustrated, briefly acknowledge their frustration in a calm and respectful way
+- Keep the tone calm, respectful, and helpful
+- Limit the reply to 80-120 words
+- Do not invent order details, delivery dates, refunds, replacements, or store policies
+- If important information is missing, ask for the order number or other needed details
+- If the customer asks for a refund or the case is high-risk, do not approve the refund
+- In risky cases, say that the issue will be reviewed by the support team
+- Do not use placeholders such as [Store Name], [Your Name], or [Customer Name]
+- End the email with:
+  Best regards,
+  Customer Support Team
+  BrightCart
+- Write only the email reply
 """
+
+full_input = f"{prompt}\n\nCustomer email:\n{customer_email}"
 
 models_to_try = [
     "gemini-3.1-flash-lite-preview",
@@ -44,10 +52,12 @@ for model_name in models_to_try:
         try:
             response = client.models.generate_content(
                 model=model_name,
-                contents=prompt,
+                contents=full_input,
             )
             print("Customer email:")
             print(customer_email)
+            print("\nPrompt used:")
+            print(prompt)
             print("\nDraft reply:")
             print(response.text)
             raise SystemExit
