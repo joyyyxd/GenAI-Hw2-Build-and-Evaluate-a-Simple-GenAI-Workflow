@@ -8,7 +8,7 @@ This workflow is a good fit for a GenAI prototype because it is repetitive, writ
 
 ## Model Choice
 
-I used **Gemini** for this prototype because it was the recommended option for the assignment and it provided a simple way to make real LLM API calls from Python. After some setup issues and rate-limit errors, I was able to run the workflow successfully using **gemini-3.1-flash-lite-preview**. I chose this model because it worked within the free-tier setup and was able to generate polite, readable support email drafts.
+I used the Google AI Studio Gemini API for this prototype because it was the recommended option for the assignment and it provided a simple way to make real LLM API calls from Python. After some setup issues and rate-limit errors, I was able to run the workflow successfully using gemini-3.1-flash-lite-preview, with gemini-3-flash-preview as a fallback option in the script. I chose these models because they worked with the free-tier setup and were able to generate polite, readable support email drafts.
 
 I mainly observed two practical issues while using Gemini. First, free-tier usage sometimes caused quota and availability errors such as 429 and 503 responses. Second, even when the model worked, output quality depended heavily on prompt wording. The model was capable of producing useful drafts, but it needed clear instructions to avoid generic wording, placeholder text, and risky responses in refund-related cases.
 
@@ -28,6 +28,6 @@ This prototype still should not be trusted to fully automate all support replies
 
 ## Deployment Recommendation
 
-I would recommend deploying this workflow only in a limited way. Specifically, I would recommend it as a **drafting assistant**, not as a fully autonomous customer support agent. It is useful for creating a first draft in common low-risk cases, and it can save time by helping support staff respond more quickly and consistently. However, it should only be used under clear conditions: a human should review the draft before it is sent, and high-risk cases should be routed to human staff automatically.
+I would recommend deploying this workflow only in a limited way. Specifically, I would recommend it as a drafting assistant, not as a fully autonomous customer support agent. It is useful for creating a first draft in common low-risk cases, and it can save time by helping support staff respond more quickly and consistently. However, it should only be used under clear conditions: a human should review the draft before it is sent, and high-risk cases should be routed to human staff automatically.
 
 In other words, I would recommend deployment for low-risk support drafting with human review, but I would not recommend full automation. The prototype is helpful, but the evaluation showed that safety and judgment still depend on prompt design and human oversight.
